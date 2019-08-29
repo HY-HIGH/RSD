@@ -146,8 +146,12 @@ class Environment:
                     done   = True
                 else:
                     fail_detect=0
-        
-        elif (dist_x <=success) and (dist_y <=success) and (dist_box_size <=success) :
+        #드론의 z value가 0.3 이하가 되면 종료
+        if (pose.pose.position.z<0.3):
+            reward-=50
+            done   = True
+
+        elif (dist_x <=success) and (dist_y <=success) and (dist_box_size <=(4*success)) : #box_size는 다른것의 기준 4배 범위준다
             reward+=10
             done   = True
             success_image_capture=True
