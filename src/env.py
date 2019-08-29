@@ -70,7 +70,7 @@ class Environment:
 
         self.goto_env_client("POINT",4.0,-1.0,2.0)
         while True :
-            if (abs(pose.pose.position.x-4,0)<0.5 and abs(pose.pose.position.y+1.0)<0.5 and abs(pose.pose.position.z-2.0)<0.5):
+            if (abs(pose.pose.position.x-4.0)<0.5 and abs(pose.pose.position.y+1.0)<0.5 and abs(pose.pose.position.z-2.0)<0.5):
                 break
             else:
                 pass
@@ -96,7 +96,7 @@ class Environment:
         reward_negative_weight=-10
         #reward_possitive_weight=10
         error=0.05
-        success=0.5
+        success=0.03
         success_image_capture=False
         reward_possitive = 0.0
         reward_negative = 0.0
