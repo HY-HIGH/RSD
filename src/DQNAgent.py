@@ -169,7 +169,7 @@ class DQNAgent:
 
 
 def interpret_action(action):
-    scaling_factor   = 0.1 #위치 이동값
+    scaling_factor   = 0.5 #위치 이동값
     if action == 0:
         quad_action = (0, 0, 0)
     elif action == 1:
@@ -177,13 +177,13 @@ def interpret_action(action):
     elif action == 2:
         quad_action = (0, scaling_factor, 0)
     elif action == 3:
-        quad_action = (0, 0 , scaling_factor)
+        quad_action = (0, 0 , 0.2)# z값 고정 0.2
     elif action == 4:
         quad_action = (-scaling_factor, 0, 0)
     elif action == 5:
         quad_action = (0, -scaling_factor, 0)
     elif action == 6:
-        quad_action = (0, 0, -scaling_factor)
+        quad_action = (0, 0, -0.2)
 
     return quad_action
 
@@ -193,7 +193,7 @@ if __name__ == "__main__":
     env = Environment(image_shape=(1280, 720))
     state_size = 3
     action_size = 7
-    threshehold_pose = 0.05
+    threshehold_pose = 0.1
 
     # DQN 에이전트 생성
     rospy.init_node('DQNAgent', anonymous=False)

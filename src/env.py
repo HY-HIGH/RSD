@@ -131,12 +131,21 @@ class Environment:
         
         # NEXT frame
         _state = State()
+        fail_detect=0  #디텍트 실패시 카운트
         
         #done 상태의 정의
         # 일정 time동안 detect 실패(=xmid,ymid value가 전부 -1 )시 학습을 재시작 하며 reward=-50으로 준다.
         if ((self.current_state.X_MID==-1) or (self.current_state.Y_MID==-1) or (self.current_state.BOX_SIZE>=0.8)):
-            reward-=50
-            done   = True
+            fail_detect=fail_detect-1
+            if(fail_detect<-50):
+                reward-=50
+                done   = True
+            elif(self.current_state.X_MID>0) or (self.current_state.Y_MID>0):
+                if(self.current_state.BOX_SIZE>=0.8):
+                    reward-=50
+                    done   = True
+                else:
+                    fail_detect=0
         
         elif (dist_x <=success) and (dist_y <=success) and (dist_box_size <=success) :
             reward+=10
