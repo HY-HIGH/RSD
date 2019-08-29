@@ -19,4 +19,13 @@ REINFORCEMENT SELFIE DRONE
 
 -판넬 수정
 
+------------------------------------------------------
+ingjae
+
+-window push 성공
+
+-window로 문서 작업 하면서 수정가능
+
+-code simulation은 내컴으로 진행, 동현이 컴으로 문서작업과 코드수정 
+
 
