@@ -68,9 +68,9 @@ class Environment:
         self.current_episode  += 1
         self.current_timestep =0
 
-        self.goto_env_client("POINT",7.16,-0.1,1.1)
+        self.goto_env_client("POINT",4.0,-1.0,2.0)
         while True :
-            if (abs(pose.pose.position.x-7.16)<0.5 and abs(pose.pose.position.y+0.1)<0.5 and abs(pose.pose.position.z-1.1)<0.5):
+            if (abs(pose.pose.position.x-4,0)<0.5 and abs(pose.pose.position.y+1.0)<0.5 and abs(pose.pose.position.z-2.0)<0.5):
                 break
             else:
                 pass
@@ -94,7 +94,7 @@ class Environment:
         target_y_mid=0.618
         target_box_size=0.07 
         reward_negative_weight=-10
-        reward_possitive_weight=10
+        #reward_possitive_weight=10
         error=0.05
         success=0.5
         success_image_capture=False
@@ -112,12 +112,12 @@ class Environment:
         
         
         #보상
-        if (dist_x <=error) and (dist_y <=error) and (dist_box_size <=error) :
-            reward_possitive=reward_possitive_weight*((1-dist_x)+(1-dist_y)+(1-dist_box_size))
+        # if (dist_x <=error) and (dist_y <=error) and (dist_box_size <=error) :
+        #     reward_possitive=reward_possitive_weight*((1-dist_x)+(1-dist_y)+(1-dist_box_size))
         
             #Reward: state value가 작을 수록 reward는 커진다.
-        else:
-            reward_negative = reward_negative_weight*(dist_x+dist_y+dist_box_size)
+    
+        reward_negative = reward_negative_weight*(dist_x+dist_y+dist_box_size)
 
 
         reward    = (reward_possitive + reward_negative)
