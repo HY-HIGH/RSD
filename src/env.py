@@ -27,6 +27,7 @@ from swarm_ctrl_pkg.srv import srvMultiSetpointLocal, srvMultiSetpointLocalReque
 
 realtimestate=MsgState()#상태를 저장하기 위한 객체
 pose=PoseStamped()#드론의 현재위치를 받아서 저장하는 객체
+fail_detect=0  #디텍트 실패시 카운트
 
 def poseenvCB(posedata):
     """To updateDrone's local position 
@@ -100,15 +101,18 @@ class Environment:
         success_image_capture=False
         reward_possitive = 0.0
         reward_negative = 0.0
+        global fail_detect
 
         print ("\n-----Parameters-----")
         print ("Delta X_MID      :", self.current_state.X_MID)
         print ("Delta Y_MID      :", self.current_state.Y_MID)
         print ("Delta BOX_SIZE   :", self.current_state.BOX_SIZE)
+        
 
         dist_x = abs(target_x_mid - self.current_state.X_MID)
         dist_y = abs(target_y_mid - self.current_state.Y_MID)
         dist_box_size = abs(target_box_size - self.current_state.BOX_SIZE)
+
         
         
         #보상
@@ -116,8 +120,8 @@ class Environment:
         #     reward_possitive=reward_possitive_weight*((1-dist_x)+(1-dist_y)+(1-dist_box_size))
         
             #Reward: state value가 작을 수록 reward는 커진다.
-    
-        reward_negative = reward_negative_weight*(dist_x+dist_y+dist_box_size)
+        if ((self.current_state.X_MID)!=-1 and (self.current_state.Y_MID))!=-1 :
+            reward_negative = reward_negative_weight*(dist_x+dist_y+dist_box_size)
 
 
         reward    = (reward_possitive + reward_negative)
@@ -131,7 +135,7 @@ class Environment:
         
         # NEXT frame
         _state = State()
-        fail_detect=0  #디텍트 실패시 카운트
+        
         
         #done 상태의 정의
         # 일정 time동안 detect 실패(=xmid,ymid value가 전부 -1 )시 학습을 재시작 하며 reward=-50으로 준다.
