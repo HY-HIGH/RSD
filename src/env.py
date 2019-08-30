@@ -68,10 +68,18 @@ class Environment:
     def reset(self):
         self.current_episode  += 1
         self.current_timestep =0
+        print('now init_x,y,z')##테스트
+        #초기화 init
+        # init_x = 4.0
+        # init_y = -1.0
+        # init_z = 2.0
+        init_x = 3.0
+        init_y = -9.0
+        init_z = 8.0
 
-        self.goto_env_client("POINT",4.0,-1.0,2.0)
+        self.goto_env_client("POINT",init_x,init_y,init_z)
         while True :
-            if (abs(pose.pose.position.x-4.0)<0.5 and abs(pose.pose.position.y+1.0)<0.5 and abs(pose.pose.position.z-2.0)<0.5):
+            if (abs(pose.pose.position.x-init_x)<0.5 and abs(pose.pose.position.y-init_y)<0.5 and abs(pose.pose.position.z-init_z)<0.5):
                 break
             else:
                 pass
@@ -101,6 +109,7 @@ class Environment:
         success_image_capture=False
         reward_possitive = 0.0
         reward_negative = 0.0
+
         global fail_detect
 
         print ("\n-----Parameters-----")
@@ -141,7 +150,8 @@ class Environment:
         # 일정 time동안 detect 실패(=xmid,ymid value가 전부 -1 )시 학습을 재시작 하며 reward=-50으로 준다.
         if ((self.current_state.X_MID==-1) or (self.current_state.Y_MID==-1) or (self.current_state.BOX_SIZE>=0.8)):
             fail_detect=fail_detect-1
-            if(fail_detect<-50):
+            print('faild_detect_count %d'%fail_detect)
+            if(fail_detect<-5):
                 reward-=50
                 done   = True
             elif(self.current_state.X_MID>0) or (self.current_state.Y_MID>0):
@@ -180,6 +190,7 @@ class Environment:
 if __name__ == "__main__":
     rospy.init_node('Environment', anonymous=False)
     while True:
-        print("Done")
+       pass
+       # print("Done")
 
 #에피소드의 끝은 사진찍기

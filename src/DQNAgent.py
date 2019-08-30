@@ -210,9 +210,10 @@ if __name__ == "__main__":
     for e in range(EPISODES):
         done = False
         score = 0
+        print("now_reset")##필요없음
         state = env.reset()
         state = np.reshape(state, [1, state_size])#배열 reshape하는 코드 이후 맞는지 check  수정
-
+        
         while not done:
             action = agent.get_action(state)#현재 state에 대한 action결과를 quad_action에 저장하고
             quad_action=interpret_action(action)
