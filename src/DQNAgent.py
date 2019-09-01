@@ -9,7 +9,7 @@ import numpy as np
 from collections import deque
 from keras.layers import Dense
 from keras.optimizers import Adam
-from keras.models import Sequential
+from keras.models import Sequential2
 try:
     from env import Environment 
 except ImportError:
