@@ -20,12 +20,27 @@ REINFORCEMENT SELFIE DRONE
 -판넬 수정
 
 ------------------------------------------------------
-ingjae
+1.introduction개요
 
--window push 성공
+제작 배경 및 필요성
 
--window로 문서 작업 하면서 수정가능
+2.project diagram
+알고리즘
+그림
 
--code simulation은 내컴으로 진행, 동현이 컴으로 문서작업과 코드수정 
+
+3.작품 상세 설명
+(env, agent, DQN 설명)
+
+PID제어
+
+드론
+제작과정
+실제 구동 사진
+
+
+4.concluding remarks 작품 장점 및 발전 가능성
+
+
 
 

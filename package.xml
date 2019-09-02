@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <package format="2">
-  <name>people_detection</name>
+  <name>RSD</name>
   <version>0.0.0</version>
-  <description>The people_detection package</description>
+  <description>the Reinforcement Selfie Drone</description>
 
   <maintainer email="hij1995@naver.com">injae</maintainer>
 
