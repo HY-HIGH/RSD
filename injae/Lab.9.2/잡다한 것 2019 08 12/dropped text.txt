@@ -1,0 +1,1 @@
+/home/injae/work/ros/people_detection/src/talker.py

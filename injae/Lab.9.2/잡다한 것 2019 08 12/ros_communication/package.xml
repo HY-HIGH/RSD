@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>ros_communication</name>
+  <version>0.1.0</version>
+  <description>The ros_communication package</description>
+
+ 
+  <maintainer email="hij1995@naver.com">injae</maintainer>
+
+
+  <license>Apache 2.0</license>
+  <author email="hij1995@naver.com">injae</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <depend>roscpp</depend>
+  <depend>std_msgs</depend>
+  <depend>message_generation</depend>
+  <export></export >
+  </package>
+
+
