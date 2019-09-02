@@ -113,8 +113,9 @@ class DQNAgent:
         model.add(Dense(self.action_size, activation='linear',
                         kernel_initializer='he_uniform'))
         model.summary()
-        model.compile(loss='mse', optimizer=Adam(lr=self.learning_rate))
+        model.compile(loss='mse', optimizer=Adam(lr=self.learning_rate)) #loss 는 mean square equation optimizer는 gradient decent의 방식
         return model
+        #수정 필요 아웃풋이 7개일 필요는 없는가?
 
     # 타깃 모델을 모델의 가중치로 업데이트
     def update_target_model(self):
@@ -156,7 +157,7 @@ class DQNAgent:
         target = self.model.predict(states)
         target_val = self.target_model.predict(next_states)
 
-        # 벨만 최적 방정식을 이용한 업데이트 타깃
+        # 벨만 최적 방정식을 이용한 업데이트 타깃 (배치 모델 업데이트)
         for i in range(self.batch_size):
             if dones[i]:
                 target[i][actions[i]] = rewards[i]
@@ -268,6 +269,11 @@ if __name__ == "__main__":
                       len(agent.memory), "  epsilon:", agent.epsilon)
 
                 #수정필요# 이전 10개 에피소드의 점수 평균이 490보다 크면 학습 중단 
-                if np.mean(scores[-min(10, len(scores)):]) > 490:
+                if np.mean(scores[-min(10, len(scores)):]) > 490:#+점수가 10점 한번이니까 리워드를 더주고 스코어로는 부족 그냥 리워드가 30 이상일떄 학습을 종료하는  건 어떰? 
                     agent.model.save_weights("/home/injae/catkin_ws/src/people_detection/src/save_model/selfie_drone_dqn.h5")
                     sys.exit()
+
+
+
+
+# 수정필요!! 지금 문제점 물체가 안잡혀서 리셋이 될때 사람이 디텍션 되면 리셋 위치가 아닌데도 디텍션을 해서 스텝을 진행
