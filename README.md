@@ -23,7 +23,7 @@ REINFORCEMENT SELFIE DRONE
 #1.introduction 개요
 강화학습 내용
 제작 배경 및 필요성
-
+ㅇ
 드론 
 
 강화학습 의 필요성
@@ -64,4 +64,6 @@ baseline DQN->a3c
 
 
 # 수정필요!! 지금 문제점 물체가 안잡혀서 리셋이 될때 사람이 디텍션 되면 리셋 위치가 아닌데도 디텍션을 해서 스텝을 진행
+# launch 파일 작성
+
 
