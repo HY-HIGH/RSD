@@ -269,11 +269,9 @@ if __name__ == "__main__":
                       len(agent.memory), "  epsilon:", agent.epsilon)
 
                 #수정필요# 이전 10개 에피소드의 점수 평균이 490보다 크면 학습 중단 
-<<<<<<< HEAD
                 if np.mean(scores[-min(10, len(scores)):]) > 490:
                     agent.model.save_weights("/home/injae/catkin_ws/src/RSD/src/save_model/selfie_drone_dqn.h5")
                     sys.exit()
-=======
                 if np.mean(scores[-min(10, len(scores)):]) > 490:#+점수가 10점 한번이니까 리워드를 더주고 스코어로는 부족 그냥 리워드가 30 이상일떄 학습을 종료하는  건 어떰? 
                     agent.model.save_weights("/home/injae/catkin_ws/src/people_detection/src/save_model/selfie_drone_dqn.h5")
                     sys.exit()
@@ -282,4 +280,3 @@ if __name__ == "__main__":
 
 
 # 수정필요!! 지금 문제점 물체가 안잡혀서 리셋이 될때 사람이 디텍션 되면 리셋 위치가 아닌데도 디텍션을 해서 스텝을 진행
->>>>>>> 8108dd414dbcae555609f8890e3d0549b6665766
