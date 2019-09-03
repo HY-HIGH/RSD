@@ -166,7 +166,7 @@ class Environment:
             done   = True
 
         elif (dist_x <=success) and (dist_y <=success) and (dist_box_size <=(4*success)) : #box_size는 다른것의 기준 4배 범위준다
-            reward+=10 #+ 점수 더줄 필요 있음
+            reward+=10 #+ 점수 더줄 필요 있음 100점?
             done   = True
             success_image_capture=True
         
