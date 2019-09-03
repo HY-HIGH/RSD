@@ -54,7 +54,7 @@ class Environment:
         self.current_output   = None
         self.state_sub = rospy.Subscriber('data_state',MsgState,callback=stateenvCB)
         self.pose_sub=rospy.Subscriber("/camila1/mavros/local_position/pose",PoseStamped,callback=poseenvCB)
-        rospy.init_node('DQNAgent', anonymous=False)
+        
         rospy.wait_for_service('/multi_setpoint_local')
         self.goto_env_client = rospy.ServiceProxy('/multi_setpoint_local', srvMultiSetpointLocal)
 
@@ -70,12 +70,12 @@ class Environment:
         self.current_timestep =0
         print('now init_x,y,z')##테스트
         #초기화 init
-        # init_x = 4.0
-        # init_y = -1.0
-        # init_z = 2.0
-        init_x = 3.0
-        init_y = -9.0
-        init_z = 8.0
+        init_x = 4.0
+        init_y = -1.0
+        init_z = 2.0
+        # init_x = 3.0
+        # init_y = -9.0
+        # init_z = 8.0
 
         self.goto_env_client("POINT",init_x,init_y,init_z)
         while True :

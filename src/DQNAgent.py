@@ -263,11 +263,11 @@ if __name__ == "__main__":
                 scores.append(score)
                 episodes.append(e)
                 pylab.plot(episodes, scores, 'b')
-                pylab.savefig("/home/injae/catkin_ws/src/people_detection/src/save_graph/selfie_drone_dqn.png")
+                pylab.savefig("/home/injae/catkin_ws/src/RSD/src/save_graph/selfie_drone_dqn.png")
                 print("episode:", e, "  score:", score, "  memory length:",
                       len(agent.memory), "  epsilon:", agent.epsilon)
 
                 #수정필요# 이전 10개 에피소드의 점수 평균이 490보다 크면 학습 중단 
                 if np.mean(scores[-min(10, len(scores)):]) > 490:
-                    agent.model.save_weights("/home/injae/catkin_ws/src/people_detection/src/save_model/selfie_drone_dqn.h5")
+                    agent.model.save_weights("/home/injae/catkin_ws/src/RSD/src/save_model/selfie_drone_dqn.h5")
                     sys.exit()
