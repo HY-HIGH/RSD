@@ -45,6 +45,12 @@ REINFORCEMENT SELFIE DRONE
 
 ------------------------------------------------------
 #3.작품 상세 설명
+핵심코드
+peple-detect detectiong
+보상,액션
+dqn 학습 방정식-벨만 방정식
+pid
+
 (env, agent, DQN 설명)
 objectdetection ->사람만을 검출하고 박스의 정보 추출 수정
 ros, gazebo -> 가상 강화 학습 환경 및 시뮬레이션
