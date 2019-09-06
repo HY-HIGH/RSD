@@ -8,7 +8,7 @@ import time #타임 스탬프
 import math
 import numpy as np
 import matplotlib.pyplot as plt
-
+import random
 from PIL import Image #이미지 처리
 
 #ROS related imports
@@ -70,9 +70,9 @@ class Environment:
         self.current_timestep =0
         print('now init_x,y,z')##테스트
         #초기화 init
-        init_x = 4.0
-        init_y = -1.0
-        init_z = 2.0
+        init_x = random.randrange(3,8)
+        init_y = random.randrange(-2,3)
+        init_z = random.randrange(1,4)
         # init_x = 3.0
         # init_y = -9.0
         # init_z = 8.0
@@ -82,6 +82,9 @@ class Environment:
             if (abs(pose.pose.position.x-init_x)<0.5 and abs(pose.pose.position.y-init_y)<0.5 and abs(pose.pose.position.z-init_z)<0.5):
                 break
             else:
+                print("init_x : %lf"%(pose.pose.position.x-init_x))
+                print("init_y : %lf"%(pose.pose.position.y-init_y))
+                print("init_z : %lf"%(pose.pose.position.z-init_z))
                 pass
         _state = State()
         _state.X_MID = realtimestate.x_mid 
@@ -178,12 +181,19 @@ class Environment:
             self.current_state = _state
        
 
-        print ("Reward     :", reward)
-        print ("Action RL  :", action ,"stage")
-        print ("Done       :", done)
+        
 
         self.current_timestep += 1
         reward+=(self.current_timestep*(-1))
+        if self.current_timestep>3:
+            done=True
+            
+
+        print ("Reward       :", reward)
+        print ("Action RL    :", action ,"stage")
+        print ("Done         :", done)
+        print ("timestep     :",self.current_timestep)
+
 
         return self.state_to_array(_state), reward, done, success_image_capture
 
