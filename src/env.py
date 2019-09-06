@@ -82,9 +82,9 @@ class Environment:
             if (abs(pose.pose.position.x-init_x)<0.5 and abs(pose.pose.position.y-init_y)<0.5 and abs(pose.pose.position.z-init_z)<0.5):
                 break
             else:
-                print("init_x : %lf"%(pose.pose.position.x-init_x))
-                print("init_y : %lf"%(pose.pose.position.y-init_y))
-                print("init_z : %lf"%(pose.pose.position.z-init_z))
+                # print("init_x : %lf"%(pose.pose.position.x-init_x))
+                # print("init_y : %lf"%(pose.pose.position.y-init_y))
+                # print("init_z : %lf"%(pose.pose.position.z-init_z))
                 pass
         _state = State()
         _state.X_MID = realtimestate.x_mid 
@@ -132,7 +132,7 @@ class Environment:
         #     reward_possitive=reward_possitive_weight*((1-dist_x)+(1-dist_y)+(1-dist_box_size))
         
             #Reward: state value가 작을 수록 reward는 커진다.
-        if ((self.current_state.X_MID)!=-1 and (self.current_state.Y_MID))!=-1 :
+        if (((self.current_state.X_MID)!=-1.0) or ((self.current_state.Y_MID))!=-1.0) :
             reward_negative = reward_negative_weight*(dist_x+dist_y+dist_box_size)
 
 
@@ -142,7 +142,7 @@ class Environment:
         print ("Distance_X:%lf" % dist_x)
         print ("Distance_Y:%lf" % dist_y)
         print ("Distance_Box_Size:%lf" % dist_box_size)
-        print ("Reward:%lf" % reward)
+        
 
         
         # NEXT frame
@@ -168,8 +168,8 @@ class Environment:
             reward-=50
             done   = True
 
-        elif (dist_x <=success) and (dist_y <=success) and (dist_box_size <=(4*success)) : #box_size는 다른것의 기준 4배 범위준다
-            reward+=10 #+ 점수 더줄 필요 있음 100점?
+        elif (dist_x <=2*success) and (dist_y <=2*success) and (dist_box_size <=(4*success)) : #box_size는 다른것의 기준 4배 범위준다
+            reward+=100 #+ 점수 더줄 필요 있음 100점?
             done   = True
             success_image_capture=True
         
@@ -184,12 +184,13 @@ class Environment:
         
 
         self.current_timestep += 1
-        reward+=(self.current_timestep*(-1))
-        if self.current_timestep>3:
+        # reward+=(self.current_timestep*(-1))
+        if self.current_timestep>50:
             done=True
             
 
         print ("Reward       :", reward)
+        # print ("Score        :", score)
         print ("Action RL    :", action ,"stage")
         print ("Done         :", done)
         print ("timestep     :",self.current_timestep)
@@ -201,6 +202,6 @@ if __name__ == "__main__":
     rospy.init_node('Environment', anonymous=False)
     while True:
        pass
-       # print("Done")
+       # print("")
 
 #에피소드의 끝은 사진찍기
