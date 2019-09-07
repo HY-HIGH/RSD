@@ -26,7 +26,7 @@ except ImportError:
 
 # Object detection module imports
 import std_msgs.msg
-from tensorflow_object_detector.msg import MsgState
+from RSD.msg import MsgState
 
 #Drone Control module imports
 from geometry_msgs.msg import PoseStamped 
@@ -34,7 +34,7 @@ from geometry_msgs.msg import Quaternion
 from swarm_ctrl_pkg.srv import srvMultiSetpointLocal, srvMultiSetpointLocalRequest
 from sensor_msgs.msg import Image #이미지 캡쳐
 #Max Episode 300
-EPISODES = 100
+EPISODES = 500
 
 #드론의 현재위치를 받아서 저장하는 object 
 #gazebo에서 위치를 publishing 때마다 계속 업데이트
@@ -270,7 +270,7 @@ if __name__ == "__main__":
                       len(agent.memory), "  epsilon:", agent.epsilon)
 
                 #수정필요# 이전 10개 에피소드의 점수 평균이 490보다 크면 학습 중단 
-                if np.mean(scores[-min(10, len(scores)):]) >60 :
+                if np.mean(scores[-min(10, len(scores)):]) >100 :
                     agent.model.save_weights("/home/injae/catkin_ws/src/RSD/src/save_model/selfie_drone_dqn.h5")
                     sys.exit()
                 # if np.mean(scores[-min(10, len(scores)):]) > 490:#+점수가 10점 한번이니까 리워드를 더주고 스코어로는 부족 그냥 리워드가 30 이상일떄 학습을 종료하는  건 어떰? 

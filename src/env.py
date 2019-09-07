@@ -17,7 +17,7 @@ import rospy
 
 # Object detection module imports
 import std_msgs.msg
-from tensorflow_object_detector.msg import MsgState
+from RSD.msg import MsgState
 
 #Drone Control module imports
 from geometry_msgs.msg import PoseStamped
@@ -69,10 +69,12 @@ class Environment:
         self.current_episode  += 1
         self.current_timestep =0
         print('now init_x,y,z')##테스트
+
         #초기화 init
         init_x = random.randrange(3,8)
         init_y = random.randrange(-2,3)
         init_z = random.randrange(1,4)
+        print('now init_x :%lf, y :%lf, z :%lf'%(init_x,init_y,init_z))
         # init_x = 3.0
         # init_y = -9.0
         # init_z = 8.0
@@ -136,7 +138,8 @@ class Environment:
             reward_negative = reward_negative_weight*(dist_x+dist_y+dist_box_size)
 
 
-        reward    = (reward_possitive + reward_negative)
+        reward += (reward_possitive + reward_negative)
+        
 
 
         print ("Distance_X:%lf" % dist_x)
@@ -152,24 +155,48 @@ class Environment:
         #done 상태의 정의
         # 일정 time동안 detect 실패(=xmid,ymid value가 전부 -1 )시 학습을 재시작 하며 reward=-50으로 준다.
         if ((self.current_state.X_MID==-1) or (self.current_state.Y_MID==-1) or (self.current_state.BOX_SIZE>=0.8)):
-            fail_detect=fail_detect-1
+            fail_detect=fail_detect+1
             print('faild_detect_count %d'%fail_detect)
-            if(fail_detect<-5):
-                reward-=50
+            if(fail_detect>5):
+                reward-=300
+                print('not detect')
                 done   = True
-            elif(self.current_state.X_MID>0) or (self.current_state.Y_MID>0):
-                if(self.current_state.BOX_SIZE>=0.8):
-                    reward-=50
-                    done   = True
-                else:
-                    fail_detect=0
+
+        elif(self.current_state.X_MID!=-1.0) or (self.current_state.Y_MID!=-1.0):
+            if(self.current_state.BOX_SIZE>=0.8):
+                reward-=200
+                print('too close')
+                done   = True
+            else:
+                fail_detect=0
         #드론의 z value가 0.3 이하가 되면 종료
-        if (pose.pose.position.z<0.3):
-            reward-=50
+        if ((pose.pose.position.x<2) \
+            or (pose.pose.position.x>9) \
+                or (pose.pose.position.y<-1) \
+                    or (pose.pose.position.y>4) \
+                        or (pose.pose.position.z<0.3) \
+                            or (pose.pose.position.z>4.5)) :
+            reward-=200
+            print('out of x :%lf'%(pose.pose.position.x))
+            print('out of y :%lf'%(pose.pose.position.y))
+            print('out of z :%lf'%(pose.pose.position.z))
+            print('out of BB')
             done   = True
+
+        self.current_timestep += 1
+        if self.current_timestep >30:
+            reward+=(self.current_timestep*(-1))
+            if self.current_timestep>50:
+                done=True
+            print('over time step ')
+        
 
         elif (dist_x <=2*success) and (dist_y <=2*success) and (dist_box_size <=(4*success)) : #box_size는 다른것의 기준 4배 범위준다
             reward+=100 #+ 점수 더줄 필요 있음 100점?
+            print('success')
+            if self.current_timestep <20:
+                reward+=((25-self.current_timestep)*5)
+
             done   = True
             success_image_capture=True
         
@@ -183,10 +210,10 @@ class Environment:
 
         
 
-        self.current_timestep += 1
-        # reward+=(self.current_timestep*(-1))
-        if self.current_timestep>50:
-            done=True
+       
+        # if self.current_timestep>50:
+        #     done=True
+        #     print('over time step ')
             
 
         print ("Reward       :", reward)
