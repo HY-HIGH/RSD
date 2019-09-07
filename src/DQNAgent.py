@@ -26,7 +26,7 @@ except ImportError:
 
 # Object detection module imports
 import std_msgs.msg
-from RSD.msg import MsgState
+from tensorflow_object_detector.msg import MsgState
 
 #Drone Control module imports
 from geometry_msgs.msg import PoseStamped 
@@ -34,7 +34,7 @@ from geometry_msgs.msg import Quaternion
 from swarm_ctrl_pkg.srv import srvMultiSetpointLocal, srvMultiSetpointLocalRequest
 from sensor_msgs.msg import Image #이미지 캡쳐
 #Max Episode 300
-EPISODES = 500
+EPISODES = 1000
 
 #드론의 현재위치를 받아서 저장하는 object 
 #gazebo에서 위치를 publishing 때마다 계속 업데이트

@@ -17,7 +17,7 @@ import rospy
 
 # Object detection module imports
 import std_msgs.msg
-from RSD.msg import MsgState
+from tensorflow_object_detector.msg import MsgState
 
 #Drone Control module imports
 from geometry_msgs.msg import PoseStamped
@@ -172,8 +172,8 @@ class Environment:
         #드론의 z value가 0.3 이하가 되면 종료
         if ((pose.pose.position.x<2) \
             or (pose.pose.position.x>9) \
-                or (pose.pose.position.y<-1) \
-                    or (pose.pose.position.y>4) \
+                or (pose.pose.position.y<-2) \
+                    or (pose.pose.position.y>5) \
                         or (pose.pose.position.z<0.3) \
                             or (pose.pose.position.z>4.5)) :
             reward-=200
