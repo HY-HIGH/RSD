@@ -71,9 +71,9 @@ class Environment:
         print('now init_x,y,z')##테스트
 
         #초기화 init
-        init_x = random.randrange(3,8)
-        init_y = random.randrange(-2,3)
-        init_z = random.randrange(1,4)
+        init_x = random.choice([3,4,5,6,7])
+        init_y = random.choice([-2,-1,1,2])
+        init_z = random.choice([1,2,3])
         print('now init_x :%lf, y :%lf, z :%lf'%(init_x,init_y,init_z))
         # init_x = 3.0
         # init_y = -9.0
@@ -180,19 +180,19 @@ class Environment:
             print('out of x :%lf'%(pose.pose.position.x))
             print('out of y :%lf'%(pose.pose.position.y))
             print('out of z :%lf'%(pose.pose.position.z))
-            print('out of BB')
+            print('out of range')
             done   = True
 
         self.current_timestep += 1
-        if self.current_timestep >30:
-            reward+=(self.current_timestep*(-1))
+        if self.current_timestep > 0:
+            reward-=2
             if self.current_timestep>50:
                 done=True
-            print('over time step ')
+                print('over time step ')
         
 
         elif (dist_x <=2*success) and (dist_y <=2*success) and (dist_box_size <=(4*success)) : #box_size는 다른것의 기준 4배 범위준다
-            reward+=100 #+ 점수 더줄 필요 있음 100점?
+            reward+=200 #+ 점수 더줄 필요 있음 100점?
             print('success')
             if self.current_timestep <20:
                 reward+=((25-self.current_timestep)*5)
