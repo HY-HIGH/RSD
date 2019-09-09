@@ -139,6 +139,7 @@ class Environment:
 
 
         reward += (reward_possitive + reward_negative)
+        print('normal reward')
         
 
 
@@ -169,6 +170,7 @@ class Environment:
                 done   = True
             else:
                 fail_detect=0
+
         #드론의 z value가 0.3 이하가 되면 종료
         if ((pose.pose.position.x<2) \
             or (pose.pose.position.x>9) \
@@ -191,7 +193,7 @@ class Environment:
                 print('over time step ')
         
 
-        elif (dist_x <=2*success) and (dist_y <=2*success) and (dist_box_size <=(4*success)) : #box_size는 다른것의 기준 4배 범위준다
+        if (dist_x <=2*success) and (dist_y <=2*success) and (dist_box_size <=(4*success)) : #box_size는 다른것의 기준 4배 범위준다
             reward+=200 #+ 점수 더줄 필요 있음 100점?
             print('success')
             if self.current_timestep <20:
@@ -201,12 +203,13 @@ class Environment:
             success_image_capture=True
         
 
-        else:
-            _state.X_MID = realtimestate.x_mid
-            _state.Y_MID = realtimestate.y_mid
-            _state.BOX_SIZE = realtimestate.box_size
-            self.current_state = _state
        
+        _state.X_MID = realtimestate.x_mid
+        _state.Y_MID = realtimestate.y_mid
+        _state.BOX_SIZE = realtimestate.box_size
+        self.current_state = _state
+
+    
 
         
 
