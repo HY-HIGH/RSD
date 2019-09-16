@@ -34,7 +34,7 @@ from geometry_msgs.msg import Quaternion
 from swarm_ctrl_pkg.srv import srvMultiSetpointLocal, srvMultiSetpointLocalRequest
 from sensor_msgs.msg import Image #이미지 캡쳐
 #Max Episode 300
-EPISODES = 1000
+EPISODES = 20000
 
 #드론의 현재위치를 받아서 저장하는 object 
 #gazebo에서 위치를 publishing 때마다 계속 업데이트
@@ -86,7 +86,7 @@ class DQNAgent:
         self.learning_rate = 0.001
         self.epsilon = 1.0
         self.epsilon_decay = 0.999
-        self.epsilon_min = 0.001
+        self.epsilon_min = 0.0001 # q-value 적용 시기
         self.batch_size = 64
         #Minimum learning period(최소 학습 주기)
         self.train_start = 1000 
@@ -274,28 +274,28 @@ if __name__ == "__main__":
                 # if (np.mean(scores[-min(10, len(scores)):]) >1000 and (e>500)) :
                 #     agent.model.save_weights("/home/injae/catkin_ws/src/RSD/src/save_model/selfie_drone_dqn.h5")
                 #     sys.exit()
-                if (e==1) :
-                    agent.model.save_weights("/home/injae/catkin_ws/src/RSD/src/save_model/selfie_drone_dqn_ep1.h5")
-                    pylab.savefig("/home/injae/catkin_ws/src/RSD/src/save_graph/selfie_drone_dqn_ep1.png")
-                    print('ep001 saved')
+                if (e==1000) :
+                    agent.model.save_weights("/home/injae/catkin_ws/src/RSD/src/save_model/selfie_drone_dqn_ep1000.h5")
+                    pylab.savefig("/home/injae/catkin_ws/src/RSD/src/save_graph/selfie_drone_dqn_ep1000.png")
+                    print('ep1000 saved')
                 
-                if (e==250) :
-                    agent.model.save_weights("/home/injae/catkin_ws/src/RSD/src/save_model/selfie_drone_dqn_ep005.h5")
-                    pylab.savefig("/home/injae/catkin_ws/src/RSD/src/save_graph/selfie_drone_dqn_ep250.png")
-                    print('ep005 saved')
+                if (e==5000) :
+                    agent.model.save_weights("/home/injae/catkin_ws/src/RSD/src/save_model/selfie_drone_dqn_ep5000.h5")
+                    pylab.savefig("/home/injae/catkin_ws/src/RSD/src/save_graph/selfie_drone_dqn_ep5000.png")
+                    print('ep5000 saved')
                     
-                if (e==500) :
-                    agent.model.save_weights("/home/injae/catkin_ws/src/RSD/src/save_model/selfie_drone_dqn_ep500.h5")
-                    pylab.savefig("/home/injae/catkin_ws/src/RSD/src/save_graph/selfie_drone_dqn_ep500.png")
-                    print('ep500 saved')
-                if (e==750) :
-                    agent.model.save_weights("/home/injae/catkin_ws/src/RSD/src/save_model/selfie_drone_dqn_ep750.h5")
-                    pylab.savefig("/home/injae/catkin_ws/src/RSD/src/save_graph/selfie_drone_dqn_ep750.png")
-                    print('ep750 saved')
-                if (e==999) :
-                    agent.model.save_weights("/home/injae/catkin_ws/src/RSD/src/save_model/selfie_drone_dqn_ep999.h5")
-                    pylab.savefig("/home/injae/catkin_ws/src/RSD/src/save_graph/selfie_drone_dqn_ep999.png")
-                    print('ep999 saved,exit')
+                if (e==10000) :
+                    agent.model.save_weights("/home/injae/catkin_ws/src/RSD/src/save_model/selfie_drone_dqn_ep10000.h5")
+                    pylab.savefig("/home/injae/catkin_ws/src/RSD/src/save_graph/selfie_drone_dqn_ep10000.png")
+                    print('ep10000 saved')
+                if (e==15000) :
+                    agent.model.save_weights("/home/injae/catkin_ws/src/RSD/src/save_model/selfie_drone_dqn_ep15000.h5")
+                    pylab.savefig("/home/injae/catkin_ws/src/RSD/src/save_graph/selfie_drone_dqn_ep15000.png")
+                    print('ep15000 saved')
+                if (e==19999) :
+                    agent.model.save_weights("/home/injae/catkin_ws/src/RSD/src/save_model/selfie_drone_dqn_ep19999.h5")
+                    pylab.savefig("/home/injae/catkin_ws/src/RSD/src/save_graph/selfie_drone_dqn_ep19999.png")
+                    print('ep19999 saved,exit')
                     sys.exit()
 
                 
