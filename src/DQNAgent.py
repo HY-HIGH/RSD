@@ -86,7 +86,7 @@ class DQNAgent:
         self.learning_rate = 0.001
         self.epsilon = 1.0
         self.epsilon_decay = 0.999
-        self.epsilon_min = 0.01
+        self.epsilon_min = 0.001
         self.batch_size = 64
         #Minimum learning period(최소 학습 주기)
         self.train_start = 1000 
@@ -270,13 +270,40 @@ if __name__ == "__main__":
                       len(agent.memory), "  epsilon:", agent.epsilon)
 
                 #수정필요# 이전 10개 에피소드의 점수 평균이 490보다 크면 학습 중단 
-                if np.mean(scores[-min(10, len(scores)):]) >100 :
-                    agent.model.save_weights("/home/injae/catkin_ws/src/RSD/src/save_model/selfie_drone_dqn.h5")
+              
+                # if (np.mean(scores[-min(10, len(scores)):]) >1000 and (e>500)) :
+                #     agent.model.save_weights("/home/injae/catkin_ws/src/RSD/src/save_model/selfie_drone_dqn.h5")
+                #     sys.exit()
+                if (e==1) :
+                    agent.model.save_weights("/home/injae/catkin_ws/src/RSD/src/save_model/selfie_drone_dqn_ep1.h5")
+                    pylab.savefig("/home/injae/catkin_ws/src/RSD/src/save_graph/selfie_drone_dqn_ep1.png")
+                    print('ep001 saved')
+                
+                if (e==250) :
+                    agent.model.save_weights("/home/injae/catkin_ws/src/RSD/src/save_model/selfie_drone_dqn_ep005.h5")
+                    pylab.savefig("/home/injae/catkin_ws/src/RSD/src/save_graph/selfie_drone_dqn_ep250.png")
+                    print('ep005 saved')
+                    
+                if (e==500) :
+                    agent.model.save_weights("/home/injae/catkin_ws/src/RSD/src/save_model/selfie_drone_dqn_ep500.h5")
+                    pylab.savefig("/home/injae/catkin_ws/src/RSD/src/save_graph/selfie_drone_dqn_ep500.png")
+                    print('ep500 saved')
+                if (e==750) :
+                    agent.model.save_weights("/home/injae/catkin_ws/src/RSD/src/save_model/selfie_drone_dqn_ep750.h5")
+                    pylab.savefig("/home/injae/catkin_ws/src/RSD/src/save_graph/selfie_drone_dqn_ep750.png")
+                    print('ep750 saved')
+                if (e==999) :
+                    agent.model.save_weights("/home/injae/catkin_ws/src/RSD/src/save_model/selfie_drone_dqn_ep999.h5")
+                    pylab.savefig("/home/injae/catkin_ws/src/RSD/src/save_graph/selfie_drone_dqn_ep999.png")
+                    print('ep999 saved,exit')
                     sys.exit()
+
+                
+                    
                 # if np.mean(scores[-min(10, len(scores)):]) > 490:#+점수가 10점 한번이니까 리워드를 더주고 스코어로는 부족 그냥 리워드가 30 이상일떄 학습을 종료하는  건 어떰? 
                 #     agent.model.save_weights("/home/injae/catkin_ws/src/people_detection/src/save_model/selfie_drone_dqn.h5")
                 #     sys.exit()
-
+    
 
 
 
